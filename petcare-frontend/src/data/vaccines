@@ -1,0 +1,32 @@
+export const vaccineRecords = [
+  {
+    id: "V-1",
+    petId: "D-101",
+    petName: "Max",
+    vaccineName: "Rabies",
+    date: "2025-01-12",
+    nextDue: "2026-01-12",
+    clinic: "Happy Paws Clinic",
+    status: "Done",
+  },
+  {
+    id: "V-2",
+    petId: "C-201",
+    petName: "Mimi",
+    vaccineName: "FVRCP",
+    date: "2025-03-02",
+    nextDue: "2026-03-02",
+    clinic: "Amman Vet Center",
+    status: "Done",
+  },
+  {
+    id: "V-3",
+    petId: "D-102",
+    petName: "Luna",
+    vaccineName: "DHPP",
+    date: "2025-09-05",
+    nextDue: "2025-10-05",
+    clinic: "Zarqa Pets Care",
+    status: "Upcoming",
+  },
+];

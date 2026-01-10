@@ -1,0 +1,10 @@
+export const publicChatMessages = [
+  { id: 1, user: "Sara", text: "Any advice for kitten food?", time: "09:12" },
+  { id: 2, user: "Ahmad", text: "Try small portions + water always 🐾", time: "09:14" },
+  { id: 3, user: "Lina", text: "Anyone adopted from Irbid recently?", time: "09:18" },
+];
+
+export const vetChatMessages = [
+  { id: 1, user: "You", text: "My dog is scratching a lot, what should I do?", time: "11:03" },
+  { id: 2, user: "Dr. Rami", text: "Check for fleas, and avoid new foods today. Any redness?", time: "11:05" },
+];
