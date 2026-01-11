@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseHttpsRedirection(); // فقط خارج Development
+    app.UseHttpsRedirection();
 }
 
 app.UseCors("Frontend");

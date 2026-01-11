@@ -78,18 +78,11 @@ export default function Home() {
         <section style={styles.section}>
           <h2 style={styles.sectionTitle}>Lost & Found</h2>
           <div style={styles.grid}>
-            <Card title="Browse Lost Pets" icon="📌" desc="See reported lost pets" onClick={() => navigate("/lost-pets")} />
             <Card
-              title="Search by Pet ID"
-              icon="🔎"
-              desc="Enter Pet ID to locate info"
-              onClick={() => navigate("/lost-pets/search")}
-            />
-            <Card
-              title="Report Lost Pet"
-              icon="📝"
-              desc="Create a new lost report"
-              onClick={() => navigate("/lost-pets/new")}
+              title="Lost & Found"
+              icon="📌"
+              desc="Browse + Report + Search"
+              onClick={() => navigate("/lost-pets")}
             />
           </div>
         </section>
