@@ -1,15 +1,23 @@
 import { useEffect, useMemo, useState } from "react";
+import { API_ORIGIN } from "../config/api";
 import { createLostPet, getLostPetByTagId, getLostPets } from "../services/lostPetsApi";
+
+const resolveImg = (u) => {
+  if (!u) return "";
+  const s = String(u).trim();
+  if (!s) return "";
+  if (/^https?:\/\//i.test(s)) return s;
+  if (s.startsWith("/")) return `${API_ORIGIN}${s}`;
+  return `${API_ORIGIN}/${s}`;
+};
 
 export default function LostPets() {
   const [tab, setTab] = useState("browse");
 
-  
   const [items, setItems] = useState([]);
   const [loadingList, setLoadingList] = useState(true);
   const [listError, setListError] = useState("");
 
- 
   const [form, setForm] = useState({
     postType: "Lost",
     tagId: "",
@@ -33,7 +41,6 @@ export default function LostPets() {
   const [pubError, setPubError] = useState("");
   const [pubSuccess, setPubSuccess] = useState("");
 
- 
   const [searchId, setSearchId] = useState("");
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchError, setSearchError] = useState("");
@@ -41,7 +48,6 @@ export default function LostPets() {
 
   const isLost = form.postType === "Lost";
 
- 
   const canPublish = useMemo(() => {
     const baseOk =
       form.tagId.trim() &&
@@ -76,7 +82,7 @@ export default function LostPets() {
 
   useEffect(() => {
     refreshList();
-    
+
     return () => {
       previews.forEach((u) => URL.revokeObjectURL(u));
     };
@@ -117,9 +123,7 @@ export default function LostPets() {
 
       const payload = {
         ...form,
-        
         ageMonths: Number(form.ageMonths) || 0,
-        
         reward: form.reward ?? "",
         images,
       };
@@ -178,7 +182,6 @@ export default function LostPets() {
     }
   }
 
- 
   const readLastSeen = (obj) => obj?.lastSeenAt || obj?.lastSeen || "-";
 
   return (
@@ -273,7 +276,7 @@ export default function LostPets() {
                   {Array.isArray(p.imageUrls) && p.imageUrls.length > 0 && (
                     <div style={styles.images}>
                       {p.imageUrls.slice(0, 4).map((src, idx) => (
-                        <img key={idx} src={src} alt="lost" style={styles.img} />
+                        <img key={idx} src={resolveImg(src)} alt="lost" style={styles.img} />
                       ))}
                     </div>
                   )}
@@ -409,7 +412,6 @@ export default function LostPets() {
                 </div>
               )}
 
-              
               <button
                 type="submit"
                 disabled={pubLoading}
@@ -444,7 +446,8 @@ export default function LostPets() {
             {searchResult && (
               <div style={{ ...styles.post, marginTop: 12 }}>
                 <div style={styles.petName}>
-                  {searchResult.petName || "Pet"} <span style={styles.tag}>#{searchResult.tagId || "-"}</span>
+                  {searchResult.petName || "Pet"}{" "}
+                  <span style={styles.tag}>#{searchResult.tagId || "-"}</span>
                 </div>
                 <div style={styles.meta}>
                   {(searchResult.postType || "-")} • {(searchResult.petType || "-")} • {(searchResult.gender || "-")} •{" "}
@@ -454,6 +457,14 @@ export default function LostPets() {
                   <b>Age:</b> {searchResult.ageMonths ?? "-"} | <b>Last Seen:</b> {readLastSeen(searchResult)}
                 </div>
                 <div style={{ marginTop: 8 }}>{searchResult.description || "-"}</div>
+
+                {Array.isArray(searchResult.imageUrls) && searchResult.imageUrls.length > 0 && (
+                  <div style={styles.images}>
+                    {searchResult.imageUrls.slice(0, 4).map((src, idx) => (
+                      <img key={idx} src={resolveImg(src)} alt="lost" style={styles.img} />
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </>
